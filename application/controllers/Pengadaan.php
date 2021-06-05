@@ -229,6 +229,22 @@ keterangan_diselesaikan : saat petugas menyetujui_diselesaikan = 1, lalu data ba
     $this->footer();
   }
 
+  public function edit_pengadaan($id)
+  {
+    //mengambil detail pengadaan
+    $data['edit_pengadaan'] = $this->Main_model->get_detail_untuk_edit($id);
+    //mengambil semua data barang dengan id_pengadaan yang sama
+    $data['item_barang'] = $this->Main_model->get_detail_pengadaan_item($id);
+    $data['barang'] = $this->Main_model->select_record('barang');
+    $data['supplier'] = $this->Main_model->select_record('supplier');
+    // var_dump($data['edit_pengadaan']);
+    // die;
+
+    $this->header('Edit pengadaan');
+    $this->load->view('pengadaan/edit_pengadaan', $data);
+    $this->footer();
+  }
+
   public function hapus_pengadaan($id)
   {
     $response = $this->Main_model->delete_pengadaan($id);
@@ -333,30 +349,45 @@ keterangan_diselesaikan : saat petugas menyetujui_diselesaikan = 1, lalu data ba
     );
   }
 
-  
+
   public function nerima_pengadaan($id)
-    {
-      // $data = array(
-      //   'status' => 1,
-      //   'tgl_disetujui' => date("Y-m-d H:i:s"),
-      //   'disetujui_oleh' =>  $this->session->userdata('user_id'),
-      // );
-      // $where = array('id_pengadaan' => $id);
-      // $this->session->set_flashdata('success', 'Nerima Pengadaan');
-
-      // redirect(base_url() . 'Pengadaan/data_pengadaan');
-      
-      $status = 1;
-      $this->Main_model->ubahaktifpengadaan($id, $status);
-      redirect(base_url() . 'Pengadaan/data_pengadaan');
-    }
-
-  public function tolak_pengadaan($id)
   {
-    
-    $status = 2;
-    $this->Main_model->ubahaktifpengadaan($id, $status);
+    // $data = array(
+    //   'status' => 1,
+    //   'tgl_disetujui' => date("Y-m-d H:i:s"),
+    //   'disetujui_oleh' =>  $this->session->userdata('user_id'),
+    // );
+    // $where = array('id_pengadaan' => $id);
+    // $this->session->set_flashdata('success', 'Nerima Pengadaan');
+
+    // redirect(base_url() . 'Pengadaan/data_pengadaan');
+
+    $data = array(
+      'status' => 1,
+      'disetujui_oleh' => $this->session->userdata('user_id'),
+      'tgl_disetujui' => date("Y-m-d H:i:s"),
+    );
+
+    //update tabel pengadaan
+    $where = array('id_pengadaan' => $id);
+    $this->Main_model->update_record('pengadaan', $data, $where);
+
     redirect(base_url() . 'Pengadaan/data_pengadaan');
   }
 
+  public function tolak_pengadaan($id)
+  {
+
+    $data = array(
+      'status' => 2,
+      'disetujui_oleh' => $this->session->userdata('user_id'),
+      'tgl_disetujui' => date("Y-m-d H:i:s"),
+    );
+
+    //update tabel pengadaan
+    $where = array('id_pengadaan' => $id);
+    $this->Main_model->update_record('pengadaan', $data, $where);
+
+    redirect(base_url() . 'Pengadaan/data_pengadaan');
+  }
 }

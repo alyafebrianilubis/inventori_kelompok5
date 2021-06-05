@@ -136,6 +136,17 @@ class Main_model extends CI_Model
     return $query->result();
   }
 
+  public function get_detail_untuk_edit($id)
+  {
+    $this->db->select('permintaan_pengadaan_item.*,barang.nama_barang,barang.jumlah as stok,pengadaan.*');
+    $this->db->from('permintaan_pengadaan_item');
+    $this->db->join('barang', 'barang.id_barang = permintaan_pengadaan_item.id_barang');
+    $this->db->join('pengadaan', 'pengadaan.id_pengadaan = permintaan_pengadaan_item.id_pengadaan');
+    $this->db->having('permintaan_pengadaan_item.id_pengadaan', $id);
+    $query = $this->db->get();
+    return $query->row();
+  }
+
   //FUNGSI UNTUK MENGHAPUS PENGADAAN
   public function delete_pengadaan($id)
   {
@@ -617,27 +628,27 @@ class Main_model extends CI_Model
     return $query->row();
   }
 
-  public function getUserWhere() {
-      
-    $sql = $this->db->select("*")
-    ->FROM('usr_user AS u,usr_group as g')
-    ->where('u.GROUP_ID = g.GROUP_ID')
-    ->get();
+  public function getUserWhere()
+  {
 
-  return $sql->row_array();
-   
+    $sql = $this->db->select("*")
+      ->FROM('usr_user AS u,usr_group as g')
+      ->where('u.GROUP_ID = g.GROUP_ID')
+      ->get();
+
+    return $sql->row_array();
   }
 
-  Public function insert_single_signature($image)
+  public function insert_single_signature($image)
   {
-    
-      $data1=array(			
-        'img'=>$image,
-        'USER_ID'=>$this->input->post('USER_ID'),
-      );
-      $this->db->insert('sig', $data1);
-  
-  
+
+    $data1 = array(
+      'img' => $image,
+      'USER_ID' => $this->input->post('USER_ID'),
+    );
+    $this->db->insert('sig', $data1);
+
+
     return $this->db->affected_rows();
   }
 
@@ -650,19 +661,15 @@ class Main_model extends CI_Model
       ->get();
 
     return $sql->row_array();
-     
-    
   }
 
   public function ubahaktifpengadaan($id, $status)
   {
-      $atur = array(
-          'status' => $status
-      );
+    $atur = array(
+      'status' => $status
+    );
 
-      $this->db->where('id_pengadaan', $id);
-      $this->db->update('pengadaan', $atur);
+    $this->db->where('id_pengadaan', $id);
+    $this->db->update('pengadaan', $atur);
   }
-
-
 }

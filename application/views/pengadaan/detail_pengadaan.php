@@ -36,7 +36,7 @@
         <div class="box-header with-border">
           <h3 class="box-title">Detail Pengajuan Permintaan</h3>
           <div class="text-right">
-            <a href="<?= base_url('Pengadaan/data_pengadaan') ?>" class="btn btn-warning">Back</a>
+            <a href="<?= base_url('Pengadaan/data_pengadaan') ?>" class="btn btn-default">Back</a>
           </div>
         </div>
         <!-- /.box-header -->

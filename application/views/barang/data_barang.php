@@ -39,7 +39,13 @@
                                     </td>
                                     <td><?= $brg->nama_barang; ?></td>
                                     <td><?= $brg->merek; ?></td>
-                                    <td><?= $brg->jumlah; ?></td>
+                                    <td>
+                                        <?php if ($brg->jumlah <= 10) : ?>
+                                            <span class='label label-danger'><?= $brg->jumlah; ?></span>
+                                        <?php else : ?>
+                                            <span class='label label-success'><?= $brg->jumlah; ?></span>
+                                        <?php endif; ?>
+                                    </td>
                                     <td> <img src=" <?= base_url('assets_user/img/') . $brg->gambar; ?>" class="img-fluid" alt="..." width="100"> </td>
                                     <td><?= $brg->keterangan; ?></td>
                                     <td><?php echo $brg->nama_kategori; ?></td>

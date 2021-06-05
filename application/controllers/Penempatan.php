@@ -189,8 +189,8 @@ class penempatan extends MY_Controller
   }
 
   public function nerima_penempatan($id)
-    {
-      $postData = $this->input->post();
+  {
+    $postData = $this->input->post();
 
     $data = array(
       'status' => 1,
@@ -199,9 +199,9 @@ class penempatan extends MY_Controller
     );
     $where = array('id_penempatan' => $id);
     $this->session->set_flashdata('success', 'Nerima Penempatan');
-    $response = $this->Main_model->update_record('penempatan', $data, $where);
-        redirect(base_url() . 'Penempatan/data_penempatan');
-    }
+    $this->Main_model->update_record('penempatan', $data, $where);
+    redirect(base_url() . 'Penempatan/data_penempatan');
+  }
 
   public function tolak_penempatan($id)
   {
@@ -213,8 +213,7 @@ class penempatan extends MY_Controller
     );
     $where = array('id_penempatan' => $id);
     $this->session->set_flashdata('warning', 'Menolak Penempatan');
-    $response = $this->Main_model->update_record('penempatan', $data, $where);
-        redirect(base_url() . 'Penempatan/data_penempatan');
-    }
-
+    $this->Main_model->update_record('penempatan', $data, $where);
+    redirect(base_url() . 'Penempatan/data_penempatan');
+  }
 }

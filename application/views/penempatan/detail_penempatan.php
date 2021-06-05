@@ -35,7 +35,7 @@
         <div class="box-header with-border">
           <h3 class="box-title">Detail Pengajuan Penempatan</h3>
           <div class="text-right">
-            <a href="<?= base_url('Penempatan/data_penempatan') ?>" class="btn btn-warning">Back</a>
+            <a href="<?= base_url('Penempatan/data_penempatan') ?>" class="btn btn-default">Back</a>
           </div>
         </div>
         <!-- /.box-header -->
@@ -49,7 +49,6 @@
                     <th>No</th>
                     <th> Item</th>
                     <th class="hidden-xs"> Jumlah</th>
-                    <th class="hidden-xs"> Qrcode</th>
 
                   </tr>
                 </thead>
