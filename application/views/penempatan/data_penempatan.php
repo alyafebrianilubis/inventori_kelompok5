@@ -28,7 +28,7 @@
                 <th>Status</th>
                 <th>Aksi</th>
 
-                <?php if ($this->session->userdata('group_id') == '1' || $this->session->userdata('group_id') == '2') : ?>
+                <?php if ($this->session->userdata('group_id') == '2') : ?>
                   <th>Persetujuan</th>
                 <?php endif; ?>
               </tr>
@@ -117,7 +117,7 @@
                       <?php endif; ?>
                     <?php endif; ?>
 
-                    <?php if ($this->session->userdata('group_id') == '1' || $this->session->userdata('group_id') == '2') : ?>
+                    <?php if ($this->session->userdata('group_id') == '2') : ?>
                       <!-- Aktion penyetujuan pemasukan pengeluaran -->
                     <td>
                       <?php if ($pgd->status == 0) : ?>

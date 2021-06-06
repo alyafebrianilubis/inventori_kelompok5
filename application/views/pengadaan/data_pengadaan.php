@@ -28,7 +28,7 @@
                 <th>Diminta oleh</th>
                 <th>Status</th>
                 <th width="120px">Aksi</th>
-                <?php if ($this->session->userdata('group_id') == '1' || $this->session->userdata('group_id') == '2') : ?>
+                <?php if ($this->session->userdata('group_id') == '2') : ?>
                   <th>Persetujuan</th>
                 <?php endif; ?>
 
@@ -88,7 +88,7 @@
                     <?php endif; ?>
                     <!-- Aktion penyetujuan pemasukan pengeluaran -->
 
-                    <?php if ($this->session->userdata('group_id') == '1' || $this->session->userdata('group_id') == '2') : ?>
+                    <?php if ($this->session->userdata('group_id') == '2') : ?>
                     <td>
                       <?php if ($pgd->status == 0) : ?>
                         <a class="btn btn-info" data-toggle="modal" href="#sign-modal1<?= $pgd->id_pengadaan; ?>">

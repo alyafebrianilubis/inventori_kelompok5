@@ -80,6 +80,7 @@
                     <?php if ($this->session->userdata('group_id') == '2'): ?>
                     <td><a href="<?= base_url() ?>Pengadaan/detail_invoice_pengadaan/<?= $pgd->id_pengadaan; ?>" class="btn btn-default"><i class=" fa fa-file"></i> </a></td>
                     <?php endif;?>
+                    
                 </tr>
               <?php $i++;
               endforeach; ?>
