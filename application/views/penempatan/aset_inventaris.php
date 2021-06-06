@@ -53,7 +53,6 @@
 
                     <!-- kalau status masih waiting -->
                     <a href="<?= base_url() ?>penempatan/detail_aset_inventaris/<?= $ki->id; ?>" class="btn btn-primary"><i class=" fa fa-eye"></i> </a>
-                    <a href="<?= base_url() ?>penempatan/print_penempatan/<?= $ki->id; ?>" class="btn btn-default"><i class=" fa fa-file"></i> </a>
 
                     <!-- Modal Hapus-->
                     <div class="modal fade" id="deletepenempatan<?= $ki->id_penempatan; ?>" tabindex="-1" role="dialog" aria-labelledby="deleteBusLabel" aria-hidden="true">

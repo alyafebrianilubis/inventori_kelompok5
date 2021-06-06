@@ -53,128 +53,108 @@
 
 
                         <header class="clearfix center">
-                                <div id="logo">
-                                    <img src="<?=base_url()?>assets/usu.png">
-                                </div>
-                                <div id="company">
-                                    <h2 class="name">Universitas Sumatera Utara</h2>
-                                    <div>Kelompok 5</div>
-                                    <div>Sistem Inventaris Kelompok 5</div>
-                                </div>
-
-                            </header>
-                            <hr>
-
-                                <main class="invoice_report">
-
-                                    <h4>Laporan Penempatan dari : <strong><?php echo $start ?></strong> sampai
-                                        <strong><?php echo $end ?></strong>
-                                    </h4>
-                                    <br />
-                                    <br />
-
-                                    <?php
-                                    $key = 0;
-                                    $total_cost = 0;
-                                    $total_sell = 0;
-                                    $total_profit = 0;
-                                    $p = 0;
-                                    ?>
-
-                                    <?php if (!empty($invoice_details)): foreach ($invoice_details as $id_penempatan => $penempatan) : ?>
-                                        <table>
-                                            <thead>
-                                            
-                                                <tr>
-                                                    <td class="text-left">Data Penempatan</td>
-                                                    <th class="tgl">Tanggal
-                                                        Penempatan : <?php echo date('Y-m-d', strtotime($order[$key]->tgl_ditempatkan)) ?></th>
-                                                    <th class="kode">
-                                                        Kode Penempatan : <?php echo $order[$key]->id_penempatan ?></th>
-                                                </tr>
-                                            </thead>
-                                        </table>
-                                        <table border="0" cellspacing="0" cellpadding="0">
-                                            <thead>
-                                                <tr style="background-color: #ECECEC">
-                                                    <th class="no text-center">No</th>
-                                                    <th class="desc text-center">Nama barang</th>
-                                                    <th class="qty text-center">Jumlah</th>
-                        
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <?php $k = 1 ?>
-                                                <?php foreach ($penempatan as $ppt) : ?>
-                                                    <tr>
-                                                        <td class="no text-center"><?= $k; ?></td>
-                                                        <td class="desc text-center"><?= $ppt->nama_barang; ?></td>
-                                                        <td class="qty text-center"><?= $ppt->jumlah_keluar; ?></td>
-                                                       
-
-                                                    </tr>
-                                                </thead>
-                                            </table>
-                                            <table border="0" cellspacing="0" cellpadding="0">
-                                                <thead>
-                                                    <tr style="background-color: #ECECEC">
-                                                        <th>No.</th>
-                                                        <th>Nama barang</th>
-                                                        <th>Jumlah</th>
-
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <?php $k = 1 ?>
-                                                    <?php foreach ($penempatan as $ppt) : ?>
-                                                        <tr>
-                                                            <td><?= $k; ?></td>
-                                                            <td><?= $ppt->nama_barang; ?></td>
-                                                            <td><?= $ppt->jumlah_keluar; ?></td>
-
-                                                        </tr>
-
-                                                        <?php $k++ ?>
-
-
-                                                    <?php
-                                                    endforeach;
-                                                    ?>
-
-
-                                                </tbody>
-
-                                                <tfoot>
-
-                                                <tr> 
-                                                <td colspan="1">Nama Lokasi : </td>
-                                                    <td><?php echo ($ppt->nama_lokasi) ?>, <?php echo ($ppt->fakultas) ?></td>
-                                                </tr>
-                                            </tfoot>
-
-                                        
-
-                                        </table>
-                                        <?php $key++; ?>
-                                    <?php endforeach; endif; ?>
-
-                                </main>
-                                <hr>
-                                <footer class="text-center">
-                                    <!-- <strong><?= $company->name; ?></strong>&nbsp;&nbsp;&nbsp;<?= $company->address; ?> -->
-                                </footer>
-
-
+                            <div id="logo">
+                                <img src="<?= base_url() ?>assets/usu.png">
                             </div>
-                        </div>
+                            <div id="company">
+                                <h2 class="name">Universitas Sumatera Utara</h2>
+                                <div>Kelompok 5</div>
+                                <div>Sistem Inventaris Kelompok 5</div>
+                            </div>
+
+                        </header>
+                        <hr>
+
+                        <main class="invoice_report">
+
+                            <h4>Laporan Penempatan dari : <strong><?php echo $start ?></strong> sampai
+                                <strong><?php echo $end ?></strong>
+                            </h4>
+                            <br />
+                            <br />
+
+                            <?php
+                            $key = 0;
+                            $total_cost = 0;
+                            $total_sell = 0;
+                            $total_profit = 0;
+                            $p = 0;
+                            ?>
+
+                            <?php if (!empty($invoice_details)) : foreach ($invoice_details as $id_penempatan => $penempatan) : ?>
+                                    <table>
+                                        <thead>
+
+                                            <tr>
+                                                <td class="text-left">Data Penempatan</td>
+                                                <th class="tgl">Tanggal
+                                                    Penempatan : <?php echo date('Y-m-d', strtotime($order[$key]->tgl_ditempatkan)) ?></th>
+                                                <th class="kode">
+                                                    Kode Penempatan : <?php echo $order[$key]->id_penempatan ?></th>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                    <table border="0" cellspacing="0" cellpadding="0">
+                                        <thead>
+                                            <tr style="background-color: #ECECEC">
+                                                <th class="no text-center">No</th>
+                                                <th class="desc text-center">Nama barang</th>
+                                                <th class="qty text-center">Jumlah</th>
+
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php $k = 1 ?>
+                                            <?php foreach ($penempatan as $ppt) : ?>
+                                                <tr>
+                                                    <td class="no text-center"><?= $k; ?></td>
+                                                    <td class="desc text-center"><?= $ppt->nama_barang; ?></td>
+                                                    <td class="qty text-center"><?= $ppt->jumlah_keluar; ?></td>
+
+                                                </tr>
+
+                                                <?php $k++ ?>
+
+
+                                            <?php
+                                            endforeach;
+                                            ?>
+
+
+                                        </tbody>
+
+                                        <tfoot>
+
+                                            <tr>
+                                                <td colspan="1">Nama Lokasi : </td>
+                                                <td><?php echo ($ppt->nama_lokasi) ?>, <?php echo ($ppt->fakultas) ?></td>
+                                            </tr>
+                                        </tfoot>
+
+
+
+                                    </table>
+                                    <?php $key++; ?>
+                            <?php endforeach;
+                            endif; ?>
+
+                        </main>
+                        <hr>
+                        <footer class="text-center">
+                            <!-- <strong><?= $company->name; ?></strong>&nbsp;&nbsp;&nbsp;<?= $company->address; ?> -->
+                        </footer>
+
 
                     </div>
-                <?php } ?>
-
             </div>
+
         </div>
-        <!-- END SAMPLE FORM box-->
+    <?php } ?>
+
     </div>
+</div>
+<!-- END SAMPLE FORM box-->
+</div>
 </div>
 
 <script type="text/javascript">

@@ -49,23 +49,23 @@
                     <br>
                     <br>
                     <div id="printableArea">
-                        <link href="<?= base_url(); ?>assets/sales_report.css" rel="stylesheet" type="text/css">
+                        <link href="<?= base_url(); ?>assets/laporan.css" rel="stylesheet" type="text/css">
 
 
                         <div class="row ">
                             <div class="col-md-8 col-md-offset-2">
-                            <header class="clearfix center">
-                                <div id="logo">
-                                    <img src="<?=base_url()?>assets/usu.png">
-                                </div>
-                                <div id="company">
-                                    <h2 class="name">Universitas Sumatera Utara</h2>
-                                    <div>Kelompok 5</div>
-                                    <div>Sistem Inventaris Kelompok 5</div>
-                                </div>
+                                <header class="clearfix center">
+                                    <div id="logo">
+                                        <img src="<?= base_url() ?>assets/usu.png">
+                                    </div>
+                                    <div id="company">
+                                        <h2 class="name">Universitas Sumatera Utara</h2>
+                                        <div>Kelompok 5</div>
+                                        <div>Sistem Inventaris Kelompok 5</div>
+                                    </div>
 
-                            </header>
-                            <hr>
+                                </header>
+                                <hr>
 
                                 <main class="invoice_report">
 
@@ -82,59 +82,60 @@
                                     $total_profit = 0;
                                     $p = 0;
                                     ?>
-                                    <?php if (!empty($invoice_details)): foreach ($invoice_details as $id_pengadaan => $pengadaan) : ?>
-                                        <table>
-                                            <thead>
-                                                <tr>
-                                                    <th class="text-left">Data Pengadaan</th>
-                                                    <th class="desc">Tanggal
-                                                        Pengadaan : <?php echo date('Y-m-d', strtotime($order[$key]->tgl_masuk)) ?></th>
-                                                    <th class="desc">
-                                                        Kode Pengadaan : <?php echo $order[$key]->id_pengadaan ?></th>
-                                                </tr>
-                                            </thead>
-                                        </table>
-                                        <table border="0" cellspacing="0" cellpadding="0">
-                                            <thead>
-                                                <tr style="background-color: #ECECEC">
-                                                    <th class="no text-center">No</th>
-                                                    <th class="desc text-center">Nama barang</th>
-                                                    <th class="qty text-center">Jumlah</th>
-                                                    <th class="hrg text-center">Harga</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <?php $k = 1 ?>
-                                                <?php foreach ($pengadaan as $pgd) : ?>
+                                    <?php if (!empty($invoice_details)) : foreach ($invoice_details as $id_pengadaan => $pengadaan) : ?>
+                                            <table>
+                                                <thead>
                                                     <tr>
-                                                        <td class="no text-center"><?= $k; ?></td>
-                                                        <td class="desc text-center"><?= $pgd->nama_barang; ?></td>
-                                                        <td class="qty text-center"><?= $pgd->jumlah_masuk; ?></td>
-                                                        <td class="hrg text-center"><?= $pgd->harga; ?></td>
+                                                        <th class="text-left">Data Pengadaan</th>
+                                                        <th class="desc">Tanggal
+                                                            Pengadaan : <?php echo date('Y-m-d', strtotime($order[$key]->tgl_masuk)) ?></th>
+                                                        <th class="desc">
+                                                            Kode Pengadaan : <?php echo $order[$key]->id_pengadaan ?></th>
+                                                    </tr>
+                                                </thead>
+                                            </table>
+                                            <table border="0" cellspacing="0" cellpadding="0">
+                                                <thead>
+                                                    <tr style="background-color: #ECECEC">
+                                                        <th class="no text-center">No</th>
+                                                        <th class="desc text-center">Nama barang</th>
+                                                        <th class="qty text-center">Jumlah</th>
+                                                        <th class="hrg text-center">Harga</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <?php $k = 1 ?>
+                                                    <?php foreach ($pengadaan as $pgd) : ?>
+                                                        <tr>
+                                                            <td class="no text-center"><?= $k; ?></td>
+                                                            <td class="desc text-center"><?= $pgd->nama_barang; ?></td>
+                                                            <td class="qty text-center"><?= $pgd->jumlah_masuk; ?></td>
+                                                            <td class="hrg text-center"><?= $pgd->harga; ?></td>
+                                                        </tr>
+
+                                                        <?php $k++ ?>
+
+
+                                                    <?php
+                                                    endforeach;
+                                                    ?>
+
+
+                                                </tbody>
+
+                                                <tfoot>
+
+                                                    <tr>
+                                                        <td colspan="3">Total Harga</td>
+                                                        <td class="text-center"><?php echo number_format($order[$key]->total_harga, 2) ?></td>
                                                     </tr>
 
-                                                    <?php $k++ ?>
+                                                </tfoot>
 
-
-                                                <?php
-                                                endforeach;
-                                                ?>
-
-
-                                            </tbody>
-
-                                            <tfoot>
-
-                                                <tr>
-                                                    <td colspan="3">Total Harga</td>
-                                                    <td class = "text-center"><?php echo number_format($order[$key]->total_harga, 2) ?></td>
-                                                </tr>
-
-                                            </tfoot>
-
-                                        </table>
-                                        <?php $key++; ?>
-                                    <?php endforeach; endif; ?>
+                                            </table>
+                                            <?php $key++; ?>
+                                    <?php endforeach;
+                                    endif; ?>
 
                                 </main>
                                 <hr>

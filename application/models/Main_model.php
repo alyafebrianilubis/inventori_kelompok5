@@ -684,7 +684,6 @@ class Main_model extends CI_Model
       ->get();
 
     return $query->result();
-  
   }
 
 
@@ -730,5 +729,45 @@ class Main_model extends CI_Model
 
     $this->_table_name = $table;
     $this->_primary_key = $pr_key;
+  }
+
+  public function get_detail_untuk_edit($id)
+  {
+    $this->db->select('permintaan_pengadaan_item.*,barang.nama_barang,barang.jumlah as stok,pengadaan.*');
+    $this->db->from('permintaan_pengadaan_item');
+    $this->db->join('barang', 'barang.id_barang = permintaan_pengadaan_item.id_barang');
+    $this->db->join('pengadaan', 'pengadaan.id_pengadaan = permintaan_pengadaan_item.id_pengadaan');
+    $this->db->having('permintaan_pengadaan_item.id_pengadaan', $id);
+    $query = $this->db->get();
+    return $query->row();
+  }
+
+  public function update_batch_permintaan($data, $id_pengadaan)
+  {
+    //delete yang lama
+    $this->db->where('id_pengadaan', $id_pengadaan);
+    $this->db->delete('permintaan_pengadaan_item');
+    //masukkan yang baru
+    return $this->db->insert_batch('permintaan_pengadaan_item', $data);
+  }
+
+  public function get_detail_untuk_edit_penempatan($id)
+  {
+    $this->db->select('permintaan_penempatan_item.*,barang.nama_barang,barang.jumlah as stok,penempatan.*');
+    $this->db->from('permintaan_penempatan_item');
+    $this->db->join('barang', 'barang.id_barang = permintaan_penempatan_item.id_barang');
+    $this->db->join('penempatan', 'penempatan.id_penempatan = permintaan_penempatan_item.id_penempatan');
+    $this->db->having('permintaan_penempatan_item.id_penempatan', $id);
+    $query = $this->db->get();
+    return $query->row();
+  }
+
+  public function update_batch_permintaan_penempatan($data, $id_penempatan)
+  {
+    //delete yang lama
+    $this->db->where('id_penempatan', $id_penempatan);
+    $this->db->delete('permintaan_penempatan_item');
+    //masukkan yang baru
+    return $this->db->insert_batch('permintaan_penempatan_item', $data);
   }
 }

@@ -6,14 +6,14 @@
     <div class="col-xs-12">
         <div class="box">
             <div class="box-header">
-                <h3 class="box-title">Data Barang | 
-                
-                <?php if ($this->session->userdata('group_id') == '1' || $this->session->userdata('group_id') == '3'): ?>
-                <a href='<?= base_url(); ?>Barang/tambah_barang' class='btn btn-info'>
-                        Tambah Barang <i class="fa fa-plus"></i>
-                    </a>
-                <?php endif;?>
-                    </h3>
+                <h3 class="box-title">Data Barang |
+
+                    <?php if ($this->session->userdata('group_id') == '1' || $this->session->userdata('group_id') == '3') : ?>
+                        <a href='<?= base_url(); ?>Barang/tambah_barang' class='btn btn-info'>
+                            Tambah Barang <i class="fa fa-plus"></i>
+                        </a>
+                    <?php endif; ?>
+                </h3>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
@@ -29,9 +29,9 @@
                                 <th>Gambar</th>
                                 <th>Keterangan</th>
                                 <th>Kategori</th>
-                                <?php if ($this->session->userdata('group_id') == '1' || $this->session->userdata('group_id') == '3'): ?>
-                                <th style="width:120px">Aksi</th>
-                                <?php endif;?>
+                                <?php if ($this->session->userdata('group_id') == '1' || $this->session->userdata('group_id') == '3') : ?>
+                                    <th style="width:120px">Aksi</th>
+                                <?php endif; ?>
                             </tr>
                         </thead>
                         <tbody>
@@ -46,16 +46,21 @@
                                     </td>
                                     <td><?= $brg->nama_barang; ?></td>
                                     <td><?= $brg->merek; ?></td>
-                                    <td><?= $brg->jumlah; ?></td>
+                                    <td><?php if ($brg->jumlah <= 10) : ?>
+                                            <span class='label label-danger'><?= $brg->jumlah; ?></span>
+                                        <?php else : ?>
+                                            <span class='label label-success'><?= $brg->jumlah; ?></span>
+                                        <?php endif; ?>
+                                    </td>
                                     <td> <img src=" <?= base_url('assets_user/img/') . $brg->gambar; ?>" class="img-fluid" alt="..." width="100"> </td>
                                     <td><?= $brg->keterangan; ?></td>
                                     <td><?php echo $brg->nama_kategori; ?></td>
 
-                                    <?php if ($this->session->userdata('group_id') == '1' || $this->session->userdata('group_id') == '3'): ?>
-                                    <td><a href="<?= base_url() ?>Barang/edit_barang/<?= $brg->id_barang; ?>" class="btn btn-warning"><i class="fa fa-edit"></i></a>
-                                        <a data-toggle="modal" href="#deleteBarang<?= $brg->id_barang; ?>" data-url="" class="btn btn-danger confirm_delete" title="Hapus" class="btn btn-danger" data-toggle="tooltip" data-placement="left" title="Hapus Pegawai"><i class="fa fa-trash"></i></a>
-                                        <a href="<?= base_url() ?>Barang/detail_barang/<?= $brg->id_barang; ?>" class="btn btn-info"><i class="fa fa-eye"></i></a>
-                                    <?php endif;?>
+                                    <?php if ($this->session->userdata('group_id') == '1' || $this->session->userdata('group_id') == '3') : ?>
+                                        <td><a href="<?= base_url() ?>Barang/edit_barang/<?= $brg->id_barang; ?>" class="btn btn-warning"><i class="fa fa-edit"></i></a>
+                                            <a data-toggle="modal" href="#deleteBarang<?= $brg->id_barang; ?>" data-url="" class="btn btn-danger confirm_delete" title="Hapus" class="btn btn-danger" data-toggle="tooltip" data-placement="left" title="Hapus Pegawai"><i class="fa fa-trash"></i></a>
+                                            <a href="<?= base_url() ?>Barang/detail_barang/<?= $brg->id_barang; ?>" class="btn btn-info"><i class="fa fa-eye"></i></a>
+                                        <?php endif; ?>
 
 
                                         <!-- Modal Hapus-->

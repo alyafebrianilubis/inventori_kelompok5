@@ -6,13 +6,13 @@
   <div class="col-xs-12">
     <div class="box">
       <div class="box-header">
-        <h3 class="box-title">Data Pengadaan | 
-        <?php if ($this->session->userdata('group_id') == '1' || $this->session->userdata('group_id') == '3'): ?>
-        <a href='<?= base_url(); ?>Pengadaan/tambah_pengadaan' class='btn btn-info'>
-            Permohonan Pengadaan <i class="fa fa-plus"></i>
-          </a>
+        <h3 class="box-title">Data Pengadaan |
+          <?php if ($this->session->userdata('group_id') == '1' || $this->session->userdata('group_id') == '3') : ?>
+            <a href='<?= base_url(); ?>Pengadaan/tambah_pengadaan' class='btn btn-info'>
+              Permohonan Pengadaan <i class="fa fa-plus"></i>
+            </a>
           <?php endif; ?>
-          </h3>
+        </h3>
       </div>
       <!-- /.box-header -->
       <div class="box-body">
@@ -28,8 +28,8 @@
                 <th>Diminta oleh</th>
                 <th>Status</th>
                 <th width="120px">Aksi</th>
-                <?php if ($this->session->userdata('group_id') == '1' || $this->session->userdata('group_id') == '2'): ?>      
-                <th>Persetujuan</th>
+                <?php if ($this->session->userdata('group_id') == '1' || $this->session->userdata('group_id') == '2') : ?>
+                  <th>Persetujuan</th>
                 <?php endif; ?>
 
               </tr>
@@ -73,52 +73,55 @@
                     <?php endif; ?>
                   </td>
 
-                   <?php if ($this->session->userdata('group_id') == '2'): ?>
-                  <td><a href="<?= base_url() ?>Pengadaan/detail_pengadaan/<?= $pgd->id_pengadaan; ?>" class="btn btn-primary"><i class=" fa fa-eye"></i> </a></td>
+                  <?php if ($this->session->userdata('group_id') == '2') : ?>
+                    <td><a href="<?= base_url() ?>Pengadaan/detail_pengadaan/<?= $pgd->id_pengadaan; ?>" class="btn btn-primary"><i class=" fa fa-eye"></i> </a></td>
+                  <?php endif; ?>
+
+                  <?php if ($this->session->userdata('group_id') == '1' || $this->session->userdata('group_id') == '3') : ?>
+                    <td>
+                      <!-- kalau belum disetujui atau ditolak baru boleh diedit -->
+                      <?php if ($pgd->status == 0) : ?>
+                        <a href="<?= base_url() ?>pengadaan/edit_pengadaan/<?= $pgd->id_pengadaan; ?>" class="btn btn-warning"><i class="fa fa-edit"></i></a>
+                      <?php endif; ?>
+                      <a href="<?= base_url() ?>Pengadaan/detail_pengadaan/<?= $pgd->id_pengadaan; ?>" class="btn btn-primary"><i class=" fa fa-eye"></i> </a>
+                      <a data-toggle="modal" href="#deletePengadaan<?= $pgd->id_pengadaan; ?>" data-url="" class="btn btn-danger confirm_delete" title="Hapus" class="btn btn-danger" data-toggle="tooltip" data-placement="left" title="Hapus Pengadaan"><i class="fa fa-trash"></i></a>
                     <?php endif; ?>
+                    <!-- Aktion penyetujuan pemasukan pengeluaran -->
 
-                  <?php if ($this->session->userdata('group_id') == '1' || $this->session->userdata('group_id') == '3'): ?>
-                  <td>
-                    <a href="<?= base_url() ?>pengadaan/edit_pengadaan/<?= $pgd->id_pengadaan; ?>" class="btn btn-warning"><i class="fa fa-edit"></i></a>
-                    <a href="<?= base_url() ?>Pengadaan/detail_pengadaan/<?= $pgd->id_pengadaan; ?>" class="btn btn-primary"><i class=" fa fa-eye"></i> </a>
-                    <a data-toggle="modal" href="#deletePengadaan<?= $pgd->id_pengadaan; ?>" data-url="" class="btn btn-danger confirm_delete" title="Hapus" class="btn btn-danger" data-toggle="tooltip" data-placement="left" title="Hapus Pengadaan"><i class="fa fa-trash"></i></a>
-                    <?php  endif;?>
-                       <!-- Aktion penyetujuan pemasukan pengeluaran -->
-                   
-                  <?php if ($this->session->userdata('group_id') == '1' || $this->session->userdata('group_id') == '2'): ?>
-                   <td>
-                   <?php if ($pgd->status == 0) : ?>
-				          	<a class="btn btn-info" data-toggle="modal"  href="#sign-modal1<?= $pgd->id_pengadaan; ?>">
-                        <span class=" icon text-white-50">
-                          <i class="fa fa-thumbs-up"></i>
-                        </span>
-                      </a>
+                    <?php if ($this->session->userdata('group_id') == '1' || $this->session->userdata('group_id') == '2') : ?>
+                    <td>
+                      <?php if ($pgd->status == 0) : ?>
+                        <a class="btn btn-info" data-toggle="modal" href="#sign-modal1<?= $pgd->id_pengadaan; ?>">
+                          <span class=" icon text-white-50">
+                            <i class="fa fa-thumbs-up"></i>
+                          </span>
+                        </a>
 
-                      <a data-toggle="modal"  href="#sign-modal2<?= $pgd->id_pengadaan; ?>" class="btn btn-danger">
-                        <span class=" icon text-white-50">
-                          <i class="fa fa-thumbs-down" ></i>
-                        </span>
+                        <a data-toggle="modal" href="#sign-modal2<?= $pgd->id_pengadaan; ?>" class="btn btn-danger">
+                          <span class=" icon text-white-50">
+                            <i class="fa fa-thumbs-down"></i>
+                          </span>
                         </a>
 
 
                       <?php elseif ($pgd->status == 1) : ?>
-					            <a href="#<?= $pgd->id_pengadaan; ?>" class="btn btn-info" data-toggle="tooltip" disabled="disabled">
-                        <span class=" icon text-white-50">
-                          <i class="fa fa-thumbs-up"></i>
-                        </span>
-                      </a>
+                        <a href="#<?= $pgd->id_pengadaan; ?>" class="btn btn-info" data-toggle="tooltip" disabled="disabled">
+                          <span class=" icon text-white-50">
+                            <i class="fa fa-thumbs-up"></i>
+                          </span>
+                        </a>
 
-                     
+
                       <?php elseif ($pgd->status == 2) :  ?>
                         <a href="#<?= $pgd->id_pengadaan; ?>" class="btn btn-danger" data-toggle="tooltip" disabled="disabled">
-                        <span class=" icon text-white-50">
-                          <i class="fa fa-thumbs-down" ></i>
-                        </span>
-                      </a>
+                          <span class=" icon text-white-50">
+                            <i class="fa fa-thumbs-down"></i>
+                          </span>
+                        </a>
                       <?php endif; ?>
-                      <?php endif; ?>
-                  
-                      
+                    <?php endif; ?>
+
+
 
 
                     <!-- Modal Hapus-->
@@ -162,62 +165,62 @@
 <!-- page end-->
 
 
-           
-<!-- Modal Edit -->
-<?php foreach ($pengadaan as $rows): ?>
 
-<div class="modal fade" id="sign-modal1<?php echo $rows->id_pengadaan; ?>" tabindex="-1" role="basic" aria-hidden="true">
+<!-- Modal Edit -->
+<?php foreach ($pengadaan as $rows) : ?>
+
+  <div class="modal fade" id="sign-modal1<?php echo $rows->id_pengadaan; ?>" tabindex="-1" role="basic" aria-hidden="true">
     <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                <h4 class="modal-title">Tanda Tangan Untuk Menerima Pengadaan</h4>
-            </div>
-           
-            <div class="modal-body">
-            <img src="<?php echo base_url($sig['img']); ?>" alt=""> 
-            </div>
-            <br>
-            <div class="modal-footer">
-           
-              
-            <button type="button" class="btn btn-secondary" data-dismiss="modal"></i>Cancel</button>
-             <a href="<?= base_url('Pengadaan/nerima_pengadaan/' . $rows->id_pengadaan); ?>">
-             <button type="button"  class="btn btn-primary"  onclick="return confirm('Anda yakin ingin menerima pengadaan ini?')"><i class="fa fa-check"></i> Save</button> 
-            </div>
-            </form>
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+          <h4 class="modal-title">Tanda Tangan Untuk Menerima Pengadaan</h4>
         </div>
-        <!-- /.modal-content -->
+
+        <div class="modal-body">
+          <img src="<?php echo base_url($sig['img']); ?>" alt="">
+        </div>
+        <br>
+        <div class="modal-footer">
+
+
+          <button type="button" class="btn btn-secondary" data-dismiss="modal"></i>Cancel</button>
+          <a href="<?= base_url('Pengadaan/nerima_pengadaan/' . $rows->id_pengadaan); ?>">
+            <button type="button" class="btn btn-primary" onclick="return confirm('Anda yakin ingin menerima pengadaan ini?')"><i class="fa fa-check"></i> Save</button>
+        </div>
+        </form>
+      </div>
+      <!-- /.modal-content -->
     </div>
     <!-- /.modal-dialog -->
-</div>
+  </div>
 <?php endforeach; ?>
 
 
-<?php foreach ($pengadaan as $rows1): ?>
+<?php foreach ($pengadaan as $rows1) : ?>
 
-<div class="modal fade" id="sign-modal2<?php echo $rows1->id_pengadaan; ?>" tabindex="-1" role="basic" aria-hidden="true">
+  <div class="modal fade" id="sign-modal2<?php echo $rows1->id_pengadaan; ?>" tabindex="-1" role="basic" aria-hidden="true">
     <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                <h4 class="modal-title" style="color:#FF0000;">Tanda Tangan Untuk Menolak Pengadaan</h4>
-            </div>
-           
-            <div class="modal-body">
-            <img src="<?php echo base_url($sig['img']); ?>" alt=""> 
-            </div>
-            <br>
-            <div class="modal-footer">
-            
-            <button type="button" class="btn btn-secondary" data-dismiss="modal"></i>Cancel</button>
-             <a href="<?= base_url('Pengadaan/tolak_pengadaan/' . $rows1->id_pengadaan); ?>">
-             <button type="button"  class="btn btn-danger"  onclick="return confirm('Anda yakin ingin menolak pengadaan ini?')"><i class="fa fa-check"></i> Save</button> 
-            </div>
-            </form>
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+          <h4 class="modal-title" style="color:#FF0000;">Tanda Tangan Untuk Menolak Pengadaan</h4>
         </div>
-        <!-- /.modal-content -->
+
+        <div class="modal-body">
+          <img src="<?php echo base_url($sig['img']); ?>" alt="">
+        </div>
+        <br>
+        <div class="modal-footer">
+
+          <button type="button" class="btn btn-secondary" data-dismiss="modal"></i>Cancel</button>
+          <a href="<?= base_url('Pengadaan/tolak_pengadaan/' . $rows1->id_pengadaan); ?>">
+            <button type="button" class="btn btn-danger" onclick="return confirm('Anda yakin ingin menolak pengadaan ini?')"><i class="fa fa-check"></i> Save</button>
+        </div>
+        </form>
+      </div>
+      <!-- /.modal-content -->
     </div>
     <!-- /.modal-dialog -->
-</div>
+  </div>
 <?php endforeach; ?>
