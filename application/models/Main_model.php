@@ -160,6 +160,16 @@ class Main_model extends CI_Model
     return $this->db->insert_batch('permintaan_pengadaan_item', $data);
   }
 
+  public function update_batch_permintaan($data, $id_pengadaan)
+  {
+    //delete yang lama
+    $this->db->where('id_pengadaan', $id_pengadaan);
+
+    $this->db->delete('permintaan_pengadaan_item');
+    //masukkan yang baru
+    return $this->db->insert_batch('permintaan_pengadaan_item', $data);
+  }
+
   //data invoice diambil dari data pengadaan yang sudah disetujui (id_bayar = 1)
   public function get_invoice_pengadaan()
   {
@@ -229,8 +239,29 @@ class Main_model extends CI_Model
     return $query->result();
   }
 
+  public function get_detail_untuk_edit_penempatan($id)
+  {
+    $this->db->select('permintaan_penempatan_item.*,barang.nama_barang,barang.jumlah as stok,penempatan.*');
+    $this->db->from('permintaan_penempatan_item');
+    $this->db->join('barang', 'barang.id_barang = permintaan_penempatan_item.id_barang');
+    $this->db->join('penempatan', 'penempatan.id_penempatan = permintaan_penempatan_item.id_penempatan');
+    $this->db->having('permintaan_penempatan_item.id_penempatan', $id);
+    $query = $this->db->get();
+    return $query->row();
+  }
+
   public function save_batch_permintaan_penempatan($data)
   {
+    return $this->db->insert_batch('permintaan_penempatan_item', $data);
+  }
+
+  public function update_batch_permintaan_penempatan($data, $id_penempatan)
+  {
+    //delete yang lama
+    $this->db->where('id_penempatan', $id_penempatan);
+
+    $this->db->delete('permintaan_penempatan_item');
+    //masukkan yang baru
     return $this->db->insert_batch('permintaan_penempatan_item', $data);
   }
 

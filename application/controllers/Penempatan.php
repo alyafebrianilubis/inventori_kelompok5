@@ -198,7 +198,7 @@ class penempatan extends MY_Controller
       'disetujui_oleh' =>  $this->session->userdata('user_id'),
     );
     $where = array('id_penempatan' => $id);
-    $this->session->set_flashdata('success', 'Nerima Penempatan');
+    $this->session->set_flashdata('success', 'Penempatan telah diterima');
     $this->Main_model->update_record('penempatan', $data, $where);
     redirect(base_url() . 'Penempatan/data_penempatan');
   }
@@ -215,5 +215,85 @@ class penempatan extends MY_Controller
     $this->session->set_flashdata('warning', 'Menolak Penempatan');
     $this->Main_model->update_record('penempatan', $data, $where);
     redirect(base_url() . 'Penempatan/data_penempatan');
+  }
+
+  public function edit_penempatan($id)
+  {
+    //mengambil detail penempatan
+    $data['edit_penempatan'] = $this->Main_model->get_detail_untuk_edit_penempatan($id);
+    //mengambil semua data barang dengan id_penempatan yang sama
+    $data['item_barang'] = $this->Main_model->get_detail_penempatan_item($id);
+    $data['lokasi'] = $this->Main_model->select_record('lokasi');
+    $data['pegawai'] = $this->Main_model->select_record('pegawai');
+    $data['barang'] = $this->Main_model->select_record('barang');
+
+    $this->header('Edit penempatan');
+    $this->load->view('penempatan/edit_penempatan', $data);
+    $this->footer();
+  }
+
+  public function update_penempatan()
+  {
+    $postData = $this->input->post();
+    $id_penempatan =  $this->input->post('id_penempatan');
+
+
+    //data untuk ke tabel penempatan
+    $data = array(
+      'id_penempatan' => $id_penempatan,
+      'tgl_permintaan_penempatan' => $this->input->post('date'),
+      'id_lokasi' => $this->input->post('id_lokasi'),
+      'USER_ID' => $this->session->userdata('user_id'),
+      'pegawai_penanggung_jawab' =>  $this->input->post('EMP_ID'),
+      'status' => 0,
+    );
+
+    //data untuk ke tabel permintaan_item berupa array (karena multiple input)
+    $id_barang = $_POST['id_barang'];
+    $jumlah = $_POST['jumlah'];
+    $id_lokasi = $this->input->post('id_lokasi');
+
+
+
+
+    $data_item = array();
+    for ($index = 0; $index < count($id_barang) - 1; $index++) { // Kita buat perulangan berdasarkan id_barang sampai data terakhir
+      array_push($data_item, array(
+        'id_penempatan' => $id_penempatan,
+        'id_barang' => $id_barang[$index], //mengubah array menjadi string
+        'jumlah' => $jumlah[$index],  // Ambil dan set data nama sesuai index array dari $index
+        'id_lokasi' => $id_lokasi
+      ));
+    }
+
+
+    // $where = array('id_penempatan' => $postData['id_penempatan']);
+    // $response = $this->Main_model->update_record('penempatan', $data, $where);
+    $where = array('id_penempatan' => $postData['id_penempatan']);
+    $response = $this->Main_model->update_record('penempatan', $data, $where);
+    //simpan ke tabel permintaan_item
+    $response2 = $this->Main_model->update_batch_permintaan_penempatan($data_item, $id_penempatan);
+
+    /*beberapa data perlu di kirim ke file tambah_penempatan_item
+    */
+    //mengambil data id_penempatan yang baru diinput
+    $id_penempatan = $id_penempatan;
+    //mengambil data supplier yang baru diinput
+    $id_supplier = $this->input->post('id_supplier');
+    //obj perlu diubah ke array dulu denga fungsi json_decode
+    $data['supplier_input'] = json_decode(json_encode($this->Main_model->single_record('supplier', array('id_supplier' => $id_supplier))), true);
+    //mengambil data barang untuk drop down pilihan input
+
+
+    if ($response == TRUE) {
+      if ($response2 == TRUE) {
+
+        $this->session->set_flashdata('success', 'Data penempatan Berhasil Diubah');
+        redirect(base_url() . 'penempatan/data_penempatan');
+      } else { // Jika gagal
+        $this->session->set_flashdata('alert', 'Data penempatan Gagal Diubah');
+        redirect(base_url() . 'penempatan/data_penempatan');
+      }
+    }
   }
 }

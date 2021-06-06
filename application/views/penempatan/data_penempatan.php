@@ -102,6 +102,10 @@
                       <?php endif; ?>
 
                       <!-- kalau status masih waiting -->
+                      <!-- kalau belum disetujui atau ditolak baru boleh diedit -->
+                      <?php if ($pgd->status == 0) : ?>
+                        <a href="<?= base_url() ?>penempatan/edit_penempatan/<?= $pgd->id_penempatan; ?>" class="btn btn-warning"><i class="fa fa-edit"></i></a>
+                      <?php endif; ?>
                       <a href="<?= base_url() ?>penempatan/detail_penempatan/<?= $pgd->id_penempatan; ?>" class="btn btn-primary"><i class=" fa fa-eye"></i> </a>
                       <a data-toggle="modal" href="#deletepenempatan<?= $pgd->id_penempatan; ?>" data-url="" class="btn btn-danger confirm_delete" title="Hapus" class="btn btn-danger" data-toggle="tooltip" data-placement="left" title="Hapus penempatan"><i class="fa fa-trash"></i></a>
 

@@ -30,12 +30,15 @@
       ?>
       <div class="panel-body">
         <?php $attributes = array('class' => 'form-horizontal group-border hover-stripped', 'method' => 'post');
-        echo form_open_multipart('Pengadaan/insert_pengadaan', $attributes); ?>
-
-
+        echo form_open_multipart('Pengadaan/update_pengadaan', $attributes); ?>
+        <div class="form-group">
+          <div class="col-sm-3">
+            <input class="form-control" name="id_pengadaan" value="<?= $edit_pengadaan->id_pengadaan; ?>" readonly>
+          </div>
+        </div>
         <div class="form-group">
           <div class="col-sm-6"><label for="date">Tanggal</label>
-            <input type="date" name="date" id="date" class="form-control" required value="<?= $edit_pengadaan->tgl_permintaan; ?>"> <?= form_error('date', '<small class="text-danger">', '</small>'); ?>
+            <input type="date" name="datedepart" id="date" class="form-control" required value="<?= date('Y-m-d', strtotime($edit_pengadaan->tgl_permintaan)); ?>"> <?= form_error('date', '<small class="text-danger">', '</small>'); ?>
           </div>
           <div class=" col-sm-6"><label>Supplier</label><select class="form-control" id="id_supplier" name="id_supplier" required>
               <option value="">select..</option>
@@ -51,7 +54,7 @@
           </div>
         </div>
 
-        <?php foreach ($item_barang as $brg_item) : ?>
+        
           <div class="form-group fieldGroup">
             <div class="input-group">
               <div class="col-sm-4"><label>Barang</label>
@@ -61,6 +64,7 @@
                   <option value="">select..</option>
 
                   <?php foreach ($barang as $brg) { ?>
+                    <?php foreach ($item_barang as $brg_item) : ?>
                     <?php if ($brg_item->id_barang == $brg->id_barang) {
                     ?>
                       <?php if ($b->jumlah <= 10) : ?>
@@ -89,6 +93,9 @@
               </div>
               <div class="input-group-addon">
                 <a href="javascript:void(0)" class="btn btn-success addMore"><i class="fa fa-plus"></i></a>
+              </div>
+              <div class="input-group-addon">
+                <a href="javascript:void(0)" class="btn btn-danger remove"><i class="fa fa-trash"></i></a>
               </div>
             </div>
           </div>

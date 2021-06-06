@@ -189,7 +189,6 @@ keterangan_diselesaikan : saat petugas menyetujui_diselesaikan = 1, lalu data ba
       ));
     }
 
-
     //simpan ke tabel permintaan_item
     $response = $this->Main_model->save_batch_permintaan($data_item);
 
@@ -243,6 +242,84 @@ keterangan_diselesaikan : saat petugas menyetujui_diselesaikan = 1, lalu data ba
     $this->header('Edit pengadaan');
     $this->load->view('pengadaan/edit_pengadaan', $data);
     $this->footer();
+  }
+
+  public function update_pengadaan()
+  {
+    $postData = $this->input->post();
+
+    // $data = array(
+    //   'nama_pengadaan' => $this->input->post('nama_pengadaan'),
+    //   'no_telepon' => $this->input->post('no_telepon'),
+    //   'alamat' => $this->input->post('alamat'),
+    //   'GROUP_ID' => $this->input->post('GROUP_ID'),
+    //   // 'CREATED_USERID'=>$this->session->user_data('user_id'),
+    // );
+    // $where = array('id_pengadaan' => $postData['id_pengadaan']);
+    // $response = $this->Main_model->update_record('pengadaan', $data, $where);
+
+
+    ////
+    $id_pengadaan =  $this->input->post('id_pengadaan');
+
+
+    $id_barang = $_POST['id_barang'];
+    $jumlah = $_POST['jumlah'];
+    $harga = $_POST['harga'];
+
+    //hitung total harga
+    $total_harga = array_sum($harga);
+
+    $data = array(
+      'id_pengadaan' => $id_pengadaan,
+      'tgl_permintaan' => $this->input->post('date'),
+      'id_supplier' => $this->input->post('id_supplier'),
+      'total_harga' => $total_harga,
+      'USER_ID' =>  $this->session->userdata('user_id'),
+      'status' => 0,
+      '_dibayar' => 0,
+    );
+
+
+
+    $data_item = array();
+    for ($index = 0; $index < count($id_barang) - 1; $index++) { // Kita buat perulangan berdasarkan id_barang sampai data terakhir
+      array_push($data_item, array(
+        'id_barang' => $id_barang[$index], //mengubah array menjadi string
+        'id_pengadaan' => $id_pengadaan,
+        'jumlah' => $jumlah[$index],  // Ambil dan set data nama sesuai index array dari $index
+        'harga' => $harga[$index],
+      ));
+    }
+
+    // $where = array('id_pengadaan' => $postData['id_pengadaan']);
+    // $response = $this->Main_model->update_record('pengadaan', $data, $where);
+    $where = array('id_pengadaan' => $postData['id_pengadaan']);
+    $response = $this->Main_model->update_record('pengadaan', $data, $where);
+    //simpan ke tabel permintaan_item
+    $response2 = $this->Main_model->update_batch_permintaan($data_item, $id_pengadaan);
+
+    /*beberapa data perlu di kirim ke file tambah_pengadaan_item
+    */
+    //mengambil data id_pengadaan yang baru diinput
+    $id_pengadaan = $id_pengadaan;
+    //mengambil data supplier yang baru diinput
+    $id_supplier = $this->input->post('id_supplier');
+    //obj perlu diubah ke array dulu denga fungsi json_decode
+    $data['supplier_input'] = json_decode(json_encode($this->Main_model->single_record('supplier', array('id_supplier' => $id_supplier))), true);
+    //mengambil data barang untuk drop down pilihan input
+
+
+    if ($response == TRUE) {
+      if ($response2 == TRUE) {
+
+        $this->session->set_flashdata('success', 'Data pengadaan Berhasil Diubah');
+        redirect(base_url() . 'Pengadaan/data_pengadaan');
+      } else { // Jika gagal
+        $this->session->set_flashdata('alert', 'Data pengadaan Gagal Diubah');
+        redirect(base_url() . 'Pengadaan/data_pengadaan');
+      }
+    }
   }
 
   public function hapus_pengadaan($id)
