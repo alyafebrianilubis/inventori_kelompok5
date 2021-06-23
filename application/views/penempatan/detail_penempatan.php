@@ -49,7 +49,6 @@
                     <th>No</th>
                     <th> Item</th>
                     <th class="hidden-xs"> Jumlah</th>
-                    <th class="hidden-xs"> Qrcode</th>
 
                   </tr>
                 </thead>

@@ -30,7 +30,7 @@
                 <tr>
 
                   <td><?= $i; ?></td>
-                  <td><img src="<?php echo base_url('pengadaan/generate_qrcode/' . $ki->id_barang); ?>" width="100" height="100"></td>
+                  <td><img src="<?php echo base_url('penempatan/generate_qrcode/' . $ki->id); ?>" width="100" height="100"></td>
                   <td>
                     <br /><?= $ki->nama_kategori; ?>
                   </td>

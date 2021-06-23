@@ -241,7 +241,7 @@
               <?php else : ?>
                 <tr>
                   <td><span class="date">
-                      <span class='label label-success'>><?= $pd->jumlah; ?></span> </span> <span class="time">
+                      <span class='label label-success'><?= $pd->jumlah; ?></span> </span> <span class="time">
                     </span></td>
                   <td><a href="#"><?= $pd->nama_barang; ?></a></td>
                 </tr>

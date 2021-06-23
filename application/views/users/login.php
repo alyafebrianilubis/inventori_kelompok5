@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -19,65 +20,58 @@
 
 
 </head>
+
 <body class="hold-transition login-page">
-<div class="login-box">
+    <div class="login-box">
 
-    <div class="login-box-body">
-        <p class="login-box-msg">Sign in to start your session</p>
-        <?php if ($this->session->flashdata('msg')) {
-            echo "<div class='alert alert-danger'>" . $this->session->flashdata('msg') . "</div>";
-        } else {
-        } ?>
-        <?php $attributes = array('class' => 'form-horizontal group-border hover-sripped','method'=>'post');
-        echo form_open('Login/authLogin', $attributes);?>
+        <div class="login-box-body">
+            <p class="login-box-msg">Sign in to start your session</p>
+            <?php if ($this->session->flashdata('msg')) {
+                echo "<div class='alert alert-danger'>" . $this->session->flashdata('msg') . "</div>";
+            } else {
+            } ?>
+            <?php $attributes = array('class' => 'form-horizontal group-border hover-sripped', 'method' => 'post');
+            echo form_open('Login/authLogin', $attributes); ?>
 
-        <div class="form-group has-feedback">
-            <input type="text" class="form-control" name="u_email" placeholder="Username">
-            <span class="glyphicon glyphicon-user form-control-feedback"></span>
-        </div>
-        <div class="form-group has-feedback">
-            <input type="password" class="form-control" name="u_password" autocomplete="off" placeholder="Password">
-            <span class="glyphicon glyphicon-lock form-control-feedback"></span>
-        </div>
-        <div class="row">
-            <div class="col-xs-8">
-                <div class="checkbox icheck">
-                    <label>
-                        <input type="checkbox"> Remember Me
-                    </label>
+            <div class="form-group has-feedback">
+                <input type="text" class="form-control" name="u_email" placeholder="Username">
+                <span class="glyphicon glyphicon-user form-control-feedback"></span>
+            </div>
+            <div class="form-group has-feedback">
+                <input type="password" class="form-control" name="u_password" autocomplete="off" placeholder="Password">
+                <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+            </div>
+            <div class="row">
+                <!-- /.col -->
+                <div class="col-xs-4">
+                    <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
                 </div>
+                <!-- /.col -->
             </div>
-            <!-- /.col -->
-            <div class="col-xs-4">
-                <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
-            </div>
-            <!-- /.col -->
+            <?php form_close(); ?>
+
+            <hr>
+
         </div>
-        <?php form_close(); ?>
-
-
-        <a href="<?= base_url('login/register') ?>" class="text-center">Register a new membership</a>
-        <hr>
-        
+        <!-- /.login-box-body -->
     </div>
-    <!-- /.login-box-body -->
-</div>
-<!-- /.login-box -->
+    <!-- /.login-box -->
 
-<!-- jQuery 3 -->
-<script src="<?= base_url(); ?>assets/bower_components/jquery/dist/jquery.min.js"></script>
-<!-- Bootstrap 3.3.7 -->
-<script src="<?= base_url(); ?>assets/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-<!-- iCheck -->
-<script src="<?= base_url(); ?>assets/plugins/iCheck/icheck.min.js"></script>
-<script>
-    $(function () {
-        $('input').iCheck({
-            checkboxClass: 'icheckbox_square-blue',
-            radioClass: 'iradio_square-blue',
-            increaseArea: '20%' // optional
+    <!-- jQuery 3 -->
+    <script src="<?= base_url(); ?>assets/bower_components/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap 3.3.7 -->
+    <script src="<?= base_url(); ?>assets/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- iCheck -->
+    <script src="<?= base_url(); ?>assets/plugins/iCheck/icheck.min.js"></script>
+    <script>
+        $(function() {
+            $('input').iCheck({
+                checkboxClass: 'icheckbox_square-blue',
+                radioClass: 'iradio_square-blue',
+                increaseArea: '20%' // optional
+            });
         });
-    });
-</script>
+    </script>
 </body>
+
 </html>

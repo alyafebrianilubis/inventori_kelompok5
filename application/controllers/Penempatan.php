@@ -176,7 +176,21 @@ class penempatan extends MY_Controller
 
   public function generate_qrcode($id)
   {
-    $kodenya = "http://localhost/godblessthis/inventori_kelompok5/Barang/detail_barang/" . $id;
+    $kodenya = "http://localhost/inventori_kelompok5/penempatan/detail_aset_inventaris/" . $id;
+
+    //render qrcode dengan format PNG
+    QRcode::png(
+      $kodenya,
+      $outfile = false,
+      $level = QR_ECLEVEL_H,
+      $size = 5,
+      $margin = 2
+    );
+  }
+
+  public function generate_qrcode_penempatan($id)
+  {
+    $kodenya = "http://localhost/inventori_kelompok5/penempatan/detail_penempatan/" . $id;
 
     //render qrcode dengan format PNG
     QRcode::png(

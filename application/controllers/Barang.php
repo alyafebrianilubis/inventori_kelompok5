@@ -165,7 +165,7 @@ class Barang extends MY_Controller
 
     public function generate_qrcode($id)
     {
-        $kodenya = "http://localhost/godblessthis/inventori_kelompok5/Barang/detail_barang/" . $id;
+        $kodenya = "http://localhost/inventori_kelompok5/Barang/detail_barang/" . $id;
 
         //render qrcode dengan format PNG
         QRcode::png(

@@ -84,7 +84,7 @@
               <a class="btn btn-lg btn-success hidden-print margin-bottom-5" onclick="javascript:window.print();"> Print
                 <i class="fa fa-print"></i>
               </a>
-              <img src="<?php echo base_url('barang/generate_qrcode/' . $rows->id); ?>" width="100" height="100" class="pull-right">
+              <img src="<?php echo base_url('penempatan/generate_qrcode_penempatan/' .  $detail_penempatan->id_penempatan); ?>" width="100" height="100" class="pull-right">
             </div>
           </div>
         </div>
