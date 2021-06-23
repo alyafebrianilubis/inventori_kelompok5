@@ -2,13 +2,15 @@
 
 HOW TO LOGIN
 1.  Superadmin
-    uname    : anggitrisi
+    uname    : anggitrisi ;
     password : anggitrisi
 
 2.  Manager
-    uname    : alya
+    uname    : alya ;
     password : alyafebs
 
 3.  Staff
-    uname    : putri
+    uname    : putri ;
     password : putriputri
+	
+database : inventori_kelompok5
